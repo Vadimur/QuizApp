@@ -1,4 +1,5 @@
 ﻿using System;
+using QuizApp.Platforms;
 
 namespace QuizApp
 {
@@ -6,7 +7,8 @@ namespace QuizApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            LoginPlatform loginPlatform = new LoginPlatform();
+            loginPlatform.Start();
         }
     }
 }
