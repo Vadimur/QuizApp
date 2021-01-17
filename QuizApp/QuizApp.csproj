@@ -9,4 +9,10 @@
     <ProjectReference Include="..\QuizApp.DataAccess\QuizApp.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="accounts.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
