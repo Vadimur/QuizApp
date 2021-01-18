@@ -7,11 +7,11 @@ namespace QuizApp.DataAccess.Repositories
 {
     public class QuizRepository : BaseRepository<QuizEntity>, IQuizRepository
     {
-        public QuizRepository() : base("QuizStorage.json")
+        private const string StoragePath = "QuizStorage.json";
+        public QuizRepository() : base(StoragePath)
         {
         }
         
-
         public override QuizEntity Find(int id)
         {
             FetchItems();

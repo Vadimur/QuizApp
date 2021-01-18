@@ -9,8 +9,8 @@ namespace QuizApp.DataAccess.Repositories
     
     public class AccountRepository : BaseRepository<AccountEntity>, IAccountRepository
     {
-        
-        public AccountRepository() : base("accounts.json")
+        private const string StoragePath = "Accounts.json";
+        public AccountRepository() : base(StoragePath)
         {
             
         }
