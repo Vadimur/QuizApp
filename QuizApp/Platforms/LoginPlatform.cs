@@ -62,7 +62,7 @@ namespace QuizApp.Platforms
             if (account.Role == Role.Participant)
                 new ParticipantPlatform().Start();
             else if (account.Role == Role.Admin)
-                new AdminPlatform().Start();
+                new AdminPlatform(account).Start();
             else
                 Console.WriteLine("This account is damaged. Sorry, but you can't use it");
         }
