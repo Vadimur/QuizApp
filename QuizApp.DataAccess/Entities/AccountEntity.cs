@@ -1,13 +1,13 @@
-﻿namespace QuizApp.Entities
+﻿namespace QuizApp.DataAccess.Entities
 {
-    public class AccountModel
+    public class AccountEntity
     {
         public int Id { get; set; }
         public string Username  { get; set; }
         public int PasswordHash  { get; set; }
-        public Role Role  { get; set; }
+        public RoleEntity Role  { get; set; }
 
-        public AccountModel(int id, string username, string password, Role role)
+        public AccountEntity(int id, string username, string password, RoleEntity role)
         {
             Id = id;
             Username = username;
@@ -15,7 +15,7 @@
             Role = role;
         }
 
-        public AccountModel()
+        public AccountEntity()
         {
             
         }

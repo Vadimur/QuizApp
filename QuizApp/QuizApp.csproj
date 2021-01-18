@@ -10,7 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="accounts.json">
+    <None Update="Accounts.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AnswersStorage.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="QuizStorage.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
