@@ -45,7 +45,7 @@ namespace QuizApp.DataAccess.Repositories
                 return false;
             
             FetchItems();
-            int accountId = 1;
+            int accountId = 0;
 
             if (Items.Count != 0)
             {

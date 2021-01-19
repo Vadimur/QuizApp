@@ -27,7 +27,7 @@ namespace QuizApp.Services
             {
                 return false;
             }
-            int questionId = 1;
+            int questionId = 0;
             if (quiz.Questions.Count != 0)
             {
                 questionId = quiz.Questions.Max(q => q.Id) + 1;

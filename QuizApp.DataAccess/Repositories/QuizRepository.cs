@@ -53,7 +53,7 @@ namespace QuizApp.DataAccess.Repositories
                 return false;
             }
             
-            int quizId = 1;
+            int quizId = 0;
 
             if (Items.Count != 0)
             {
@@ -92,18 +92,6 @@ namespace QuizApp.DataAccess.Repositories
             SaveChanges();
             return true;
         }
-
-        /*public bool AddQuestion(int quizId, QuestionEntity questionEntity)
-        {
-            FetchItems();
-            var quiz = Items.FirstOrDefault(q => q.Id == quizId);
-            if (quiz == null)
-                return false;
-
-            quiz.Questions.Add(questionEntity);
-            SaveChanges();
-            return true;
-        }*/
         
     }
 }
