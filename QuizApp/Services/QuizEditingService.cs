@@ -1,6 +1,6 @@
 ﻿namespace QuizApp.Services
 {
-    public class QuestionBuildingService
+    public class QuizEditingService
     {
         
     }
