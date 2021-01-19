@@ -1,5 +1,5 @@
 ﻿using QuizApp.DataAccess.Entities;
-using QuizApp.Entities;
+using QuizApp.Models;
 
 namespace QuizApp.Mappers
 {
@@ -15,6 +15,9 @@ namespace QuizApp.Mappers
 
         public override AccountEntity MapToDto(Account item)
         {
+            if (item == null)
+                return null;
+            
             AccountEntity accountEntity = new AccountEntity()
             {
                 Id = item.Id,

@@ -1,4 +1,4 @@
-﻿namespace QuizApp.Entities
+﻿namespace QuizApp.Models
 {
     public enum Role
     {

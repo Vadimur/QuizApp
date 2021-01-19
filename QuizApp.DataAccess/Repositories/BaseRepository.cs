@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using QuizApp.DataAccess.Entities;
 using QuizApp.DataAccess.Exceptions;
 using QuizApp.DataAccess.Repositories.Interfaces;
 
@@ -16,13 +15,13 @@ namespace QuizApp.DataAccess.Repositories
         {
             _storagePath = storagePath;
             _serializer = new Serializer();
-            
         }
 
         public virtual void Add(T item)
         {
             FetchItems();
             Items.Add(item);
+            SaveChanges();
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -32,11 +31,11 @@ namespace QuizApp.DataAccess.Repositories
         }
 
         public abstract T Find(int id);
-        public abstract void Delete(int id);
+        public abstract bool Delete(int id);
 
-        public void Save()
+        protected void SaveChanges()
         {
-            FetchItems();
+            //FetchItems(); //TODO 
             _serializer.Serialize(_storagePath, Items);
         }
 
