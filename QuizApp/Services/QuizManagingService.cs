@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using QuizApp.DataAccess.Exceptions;
 using QuizApp.DataAccess.Repositories;
 using QuizApp.DataAccess.Repositories.Interfaces;
-using QuizApp.Entities;
 using QuizApp.Exceptions;
 using QuizApp.Mappers;
+using QuizApp.Models;
 
 namespace QuizApp.Services
 {
-    public class QuizCreatingService
+    public class QuizManagingService
     {
         private readonly IQuizRepository _quizRepository;
         private readonly QuizMapper _mapper;
 
-        public QuizCreatingService()
+        public QuizManagingService()
         {
-            _quizRepository = new QuizRepository();
+            _quizRepository = QuizRepository.GetInstance();
             _mapper = new QuizMapper();
         }
         public bool CreateQuiz(int ownerId, string name, string category)
@@ -47,6 +47,18 @@ namespace QuizApp.Services
             try
             {
                 return _quizRepository.Delete(id);
+            }
+            catch (DataAccessException exception)
+            {
+                throw new ServiceException("An error occurred. Please try again later", exception);
+            }
+        }
+
+        public Quiz FindQuiz(int id)
+        {
+            try
+            {
+                return _mapper.MapFromDto(_quizRepository.Find(id));
             }
             catch (DataAccessException exception)
             {

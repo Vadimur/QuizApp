@@ -10,9 +10,16 @@ namespace QuizApp.DataAccess.Repositories
     public class AccountRepository : BaseRepository<AccountEntity>, IAccountRepository
     {
         private const string StoragePath = "Accounts.json";
-        public AccountRepository() : base(StoragePath)
+        
+        private static AccountRepository _instance;
+
+        private AccountRepository(string path) : base(path)
         {
             
+        }
+        public static AccountRepository GetInstance()
+        {
+            return _instance ??= new AccountRepository(StoragePath);
         }
         
         public override AccountEntity Find(int id)
@@ -21,17 +28,22 @@ namespace QuizApp.DataAccess.Repositories
             return Items.FirstOrDefault(a => a.Id == id);
         }
 
-        public override void Delete(int id)
+        public override bool Delete(int id)
         {
             FetchItems();
             var account = Items.FirstOrDefault(a => a.Id == id);
             if (account == null)
-                return;
+                return false;
             Items.Remove(account);
+            SaveChanges();
+            return true;
         }
 
         public bool Add(string username, string password, RoleEntity role)
         {
+            if (string.IsNullOrWhiteSpace(username))
+                return false;
+            
             FetchItems();
             int accountId = 1;
 
@@ -48,7 +60,7 @@ namespace QuizApp.DataAccess.Repositories
             AccountEntity newAccount = new AccountEntity(accountId, username, password, role);
 
             Items.Add(newAccount);
-            Save();
+            SaveChanges();
             return true;
             
         }

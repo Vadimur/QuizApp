@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace QuizApp.Entities
+namespace QuizApp.Models
 {
     public class Question
     {

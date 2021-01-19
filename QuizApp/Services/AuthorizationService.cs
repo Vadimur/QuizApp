@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using QuizApp.DataAccess;
+﻿using System.Linq;
 using QuizApp.DataAccess.Entities;
 using QuizApp.DataAccess.Exceptions;
 using QuizApp.DataAccess.Repositories;
 using QuizApp.DataAccess.Repositories.Interfaces;
-using QuizApp.Entities;
 using QuizApp.Exceptions;
 using QuizApp.Mappers;
+using QuizApp.Models;
 
 namespace QuizApp.Services
 {
@@ -18,7 +16,7 @@ namespace QuizApp.Services
 
         public AuthorizationService()
         {
-            _accountsRepository = new AccountRepository();
+            _accountsRepository = AccountRepository.GetInstance();
             _mapper = new AccountMapper();
         }
         
@@ -51,40 +49,6 @@ namespace QuizApp.Services
             {
                 throw new ServiceException("An error occurred. Please try again later", exception);
             }
-            
-            /*List<Account> accounts;
-            try
-            {
-                accounts = _mapper.MapManyFromDto(_accountsRepository.GetAll()).ToList();
-            }
-            catch (DataAccessException exception)
-            {
-                throw new ServiceException("An error occurred. Please try again later", exception);
-            }
-            
-            int accountId = 1;
-
-            if (accounts.Count != 0)
-            {
-                accountId = accounts.Max(a => a.Id) + 1;
-            }
-
-            Account existingAccount = accounts.FirstOrDefault(a => a.Username.Equals(username));
-            if (existingAccount != null)
-            {
-                return false;
-            }
-            Account newAccount = new Account(accountId, username, password.GetHashCode(), role);
-            try
-            {
-                _accountsRepository.Add(_mapper.MapToDto(newAccount));
-                _accountsRepository.Save();
-                return true;
-            }
-            catch (DataAccessException exception)
-            {
-                throw new ServiceException("An error occurred. Please try again later", exception);
-            }*/
             
         }
         

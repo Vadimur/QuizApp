@@ -1,6 +1,6 @@
 ﻿using System;
-using QuizApp.Entities;
 using QuizApp.Exceptions;
+using QuizApp.Models;
 using QuizApp.Services;
 
 namespace QuizApp.Platforms
@@ -24,7 +24,7 @@ namespace QuizApp.Platforms
                 case 2:
                     Register();
                     break;
-                case 3:
+                case 0:
                     Exit();
                     break;
                 default:
@@ -128,7 +128,7 @@ namespace QuizApp.Platforms
         {
             Console.WriteLine("1. Login");
             Console.WriteLine("2. Register");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("0. Exit");
         }
 
     }

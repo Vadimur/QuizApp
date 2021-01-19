@@ -7,8 +7,8 @@ namespace QuizApp.DataAccess.Repositories.Interfaces
         void Add(T item);
         IEnumerable<T> GetAll();
         T Find(int id);
-        void Delete(int id);
-        void Save();
+        bool Delete(int id);
+        // void SaveChanges();
 
     }
 }
