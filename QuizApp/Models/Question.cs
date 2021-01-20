@@ -28,7 +28,7 @@ namespace QuizApp.Models
                 options += $"#{i+1}. {Options[i]}\n";
             }
 
-            return $"Question #{Id}\n" +
+            return $"Question #{Id + 1}\n" +
                    $"{Content}\n" +
                    $"{options}";
         }

@@ -7,22 +7,17 @@
         public int PasswordHash  { get; set; }
         public RoleEntity Role  { get; set; }
 
-        public AccountEntity(int id, string username, string password, RoleEntity role)
+        public AccountEntity(int id, string username, int passwordHash, RoleEntity role)
         {
             Id = id;
             Username = username;
-            PasswordHash = password.GetHashCode();
+            PasswordHash = passwordHash;
             Role = role;
         }
 
         public AccountEntity()
         {
             
-        }
-        
-        public bool IsPasswordCorrect(string password)
-        {
-            return password.GetHashCode() == PasswordHash;
         }
     }
 }

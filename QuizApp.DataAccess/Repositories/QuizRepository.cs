@@ -19,13 +19,13 @@ namespace QuizApp.DataAccess.Repositories
             return _instance ??= new QuizRepository(StoragePath);
         }
         
-        public override QuizEntity Find(int id)
+        public QuizEntity Find(int id)
         {
             FetchItems();
             return Items.FirstOrDefault(a => a.Id == id);
         }
 
-        public override bool Delete(int id)
+        public bool Delete(int id)
         {
             FetchItems();
             var account = Items.FirstOrDefault(a => a.Id == id);

@@ -10,7 +10,6 @@ namespace QuizApp.Platforms
         {
             do
             {
-                Console.WriteLine();
                 PrintUserMenu();
                 Console.Write("Enter command number: ");
                 string userInput = Console.ReadLine();

@@ -30,12 +30,9 @@ namespace QuizApp.DataAccess.Repositories
             return Items;
         }
 
-        public abstract T Find(int id);
-        public abstract bool Delete(int id);
-
         protected void SaveChanges()
         {
-            //FetchItems(); //TODO 
+            FetchItems(); 
             _serializer.Serialize(_storagePath, Items);
         }
 

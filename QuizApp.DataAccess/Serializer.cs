@@ -18,7 +18,6 @@ namespace QuizApp.DataAccess
             catch (Exception exception)
             {
                 if (exception is UnauthorizedAccessException ||
-                    exception is FileNotFoundException ||
                     exception is SecurityException ||
                     exception is IOException)
                 {
@@ -38,15 +37,20 @@ namespace QuizApp.DataAccess
             }
             catch (Exception exception)
             {
-                if (exception is UnauthorizedAccessException ||
-                    exception is FileNotFoundException ||
+                if (exception is FileNotFoundException)
+                {
+                    json = "[]";
+                    File.WriteAllText(filePath, json);
+                    
+                }
+                else if (exception is UnauthorizedAccessException ||
                     exception is SecurityException ||
                     exception is IOException)
                 {
                     throw new SerializerException(exception.Message, exception);
                 }
-
-                throw;
+                else
+                    throw;
             }
 
             try

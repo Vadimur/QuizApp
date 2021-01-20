@@ -12,29 +12,6 @@ namespace QuizApp.Platforms
         {
             _authenticationService  = new AuthorizationService();
         }
-        
-        protected override bool ChooseCommand(int commandNumber)
-        {
-            bool correctCommand = true;
-            switch (commandNumber)
-            {
-                case 1:
-                    Login();
-                    break;
-                case 2:
-                    Register();
-                    break;
-                case 0:
-                    Exit();
-                    break;
-                default:
-                    correctCommand = false;
-                    break;
-            }
-            return correctCommand;
-        }
-
-        
         private void Login()
         {
             Console.Write("Username: ");
@@ -60,7 +37,7 @@ namespace QuizApp.Platforms
             }
 
             if (account.Role == Role.Participant)
-                new ParticipantPlatform().Start();
+                new ParticipantPlatform(account).Start();
             else if (account.Role == Role.Admin)
                 new AdminPlatform(account).Start();
             else
@@ -122,6 +99,30 @@ namespace QuizApp.Platforms
 
             Console.WriteLine();
             return password;
+        }
+        
+        protected override bool ChooseCommand(int commandNumber)
+        {
+            bool correctCommand = true;
+            switch (commandNumber)
+            {
+                case 1:
+                    Login();
+                    break;
+                case 2:
+                    Register();
+                    break;
+                case 0:
+                    Exit();
+                    break;
+                default:
+                    correctCommand = false;
+                    break;
+            }
+            
+            if (correctCommand)
+                Console.WriteLine();
+            return correctCommand;
         }
         
         protected override void PrintUserMenu()
