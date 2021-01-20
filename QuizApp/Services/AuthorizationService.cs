@@ -4,6 +4,7 @@ using QuizApp.DataAccess.Exceptions;
 using QuizApp.DataAccess.Repositories;
 using QuizApp.DataAccess.Repositories.Interfaces;
 using QuizApp.Exceptions;
+using QuizApp.Helpers;
 using QuizApp.Mappers;
 using QuizApp.Models;
 
@@ -24,14 +25,20 @@ namespace QuizApp.Services
         {
             if (username.Equals("admin") && password.Equals("admin"))
             {
-                return new Account(0, username, password.GetHashCode(), Role.Admin);
+                return new Account(-1, username, password.GetDeterministicHashCode(), Role.Admin);
             }
 
             try
             {
-                AccountEntity account = _accountsRepository.GetAll().FirstOrDefault(a =>
-                    a.Username.Equals(username) && a.IsPasswordCorrect(password));
-                return _mapper.MapFromDto(account);
+               
+                Account account = _mapper.MapFromDto(_accountsRepository.GetAll().FirstOrDefault(a =>
+                    a.Username.Equals(username)));
+                
+                if (account == null || !account.IsPasswordCorrect(password))
+                    return null;
+                
+                return account;
+               
             }
             catch (DataAccessException exception)
             {
@@ -41,9 +48,14 @@ namespace QuizApp.Services
 
         public bool Register(string username, string password, Role role = Role.Participant)
         {
+            if (username.Equals("admin"))
+            {
+                return false;
+            }
+            
             try
             {
-                return _accountsRepository.Add(username, password, (RoleEntity) role);
+                return _accountsRepository.Add(username, password.GetDeterministicHashCode(), (RoleEntity) role);
             }
             catch (DataAccessException exception)
             {

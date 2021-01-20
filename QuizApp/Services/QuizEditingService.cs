@@ -12,14 +12,14 @@ namespace QuizApp.Services
     public class QuizEditingService
     {
         private readonly IQuizRepository _quizRepository;
+        private readonly IAnswerRepository _answerRepository;
         private readonly QuizMapper _quizMapper;
-        private readonly QuestionMapper _questionMapper;
 
         public QuizEditingService()
         {
             _quizRepository = QuizRepository.GetInstance();
+            _answerRepository = AnswerRepository.GetInstance();
             _quizMapper = new QuizMapper();
-            _questionMapper = new QuestionMapper();
         }
         public bool AddQuestion(Quiz quiz, string question, IEnumerable<string> options, int correctOptionId)
         {
@@ -63,7 +63,9 @@ namespace QuizApp.Services
             
             try
             {
-                return _quizRepository.Update(_quizMapper.MapToDto(quiz));
+                bool isSuccessAnswersDeletion = _answerRepository.DeleteAnswersOnQuestion(quiz.Id, questionId);
+                bool isSuccessQuestionDeletion = _quizRepository.Update(_quizMapper.MapToDto(quiz));
+                return isSuccessAnswersDeletion && isSuccessQuestionDeletion;
             }
             catch (DataAccessException exception)
             {

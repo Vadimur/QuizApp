@@ -8,5 +8,7 @@ namespace QuizApp.DataAccess.Repositories.Interfaces
         bool Add(int ownerId, string name, string category);
         IEnumerable<QuizEntity> FindByOwner(int ownerId);
         bool Update(QuizEntity quizEntity);
+        QuizEntity Find(int id);
+        bool Delete(int id);
     }
 }

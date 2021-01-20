@@ -28,17 +28,17 @@ namespace QuizApp.Platforms
             }
             
             Console.WriteLine("Now, enter the answer options. Each row must contain separate option.\nSend empty row when you are done");
-            int optionId = 1;
+            int optionId = 0;
             List<string> options = new List<string>();
             do
             {
+                optionId++;
                 Console.Write($"Answer option #{optionId}: ");
                 string answerOption = Console.ReadLine();
                 if (string.IsNullOrEmpty(answerOption))
                     break;
                 
                 options.Add(answerOption);
-                optionId++;
 
             } while (true);
 
@@ -69,7 +69,7 @@ namespace QuizApp.Platforms
                 {
                     return;
                 }
-            } while (!int.TryParse(input, out correctOptionId) || correctOptionId < 1 || correctOptionId >= optionId);
+            } while (!int.TryParse(input, out correctOptionId) || correctOptionId < 1 || correctOptionId > options.Count);
 
             try
             {
@@ -102,7 +102,7 @@ namespace QuizApp.Platforms
             }
             Console.WriteLine("Choose question number you want to delete from quiz.\nOr type 'exit' to return to the menu");
             _currentQuiz.Questions.ForEach(Console.WriteLine);
-            int maxId = _currentQuiz.Questions.Max(q => q.Id);
+            int[] availableIds = _currentQuiz.Questions.Select(q => q.Id + 1).ToArray();
             string input;
             int questionId;
             do
@@ -116,7 +116,7 @@ namespace QuizApp.Platforms
                 {
                     return;
                 }
-            } while (!int.TryParse(input, out questionId) || questionId < 1 || questionId > maxId);
+            } while (!int.TryParse(input, out questionId) || !availableIds.Contains(questionId));
 
             Console.WriteLine($"Are you sure you want delete question #{questionId}? ");
             Console.Write("y/[n]: ");
@@ -126,7 +126,7 @@ namespace QuizApp.Platforms
             
             try
             {
-                bool isSuccess = _quizEditingService.DeleteQuestion(_currentQuiz, questionId);
+                bool isSuccess = _quizEditingService.DeleteQuestion(_currentQuiz, questionId - 1);
                 if (isSuccess)
                 {
                     Console.WriteLine($"Question #{questionId} was successfully deleted!");
@@ -180,11 +180,15 @@ namespace QuizApp.Platforms
                     correctCommand = false;
                     break;
             }
+            if (correctCommand)
+                Console.WriteLine();
+            
             return correctCommand;
         }
         
         protected override void PrintUserMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("1. Add question");
             Console.WriteLine("2. Delete question");
             Console.WriteLine("3. Show all questions");

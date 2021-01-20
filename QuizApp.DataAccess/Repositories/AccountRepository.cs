@@ -22,13 +22,13 @@ namespace QuizApp.DataAccess.Repositories
             return _instance ??= new AccountRepository(StoragePath);
         }
         
-        public override AccountEntity Find(int id)
+        public AccountEntity Find(int id)
         {
             FetchItems();
             return Items.FirstOrDefault(a => a.Id == id);
         }
 
-        public override bool Delete(int id)
+        public bool Delete(int id)
         {
             FetchItems();
             var account = Items.FirstOrDefault(a => a.Id == id);
@@ -39,7 +39,7 @@ namespace QuizApp.DataAccess.Repositories
             return true;
         }
 
-        public bool Add(string username, string password, RoleEntity role)
+        public bool Add(string username, int passwordHash, RoleEntity role)
         {
             if (string.IsNullOrWhiteSpace(username))
                 return false;
@@ -57,7 +57,7 @@ namespace QuizApp.DataAccess.Repositories
             {
                 return false;
             }
-            AccountEntity newAccount = new AccountEntity(accountId, username, password, role);
+            AccountEntity newAccount = new AccountEntity(accountId, username, passwordHash, role);
 
             Items.Add(newAccount);
             SaveChanges();

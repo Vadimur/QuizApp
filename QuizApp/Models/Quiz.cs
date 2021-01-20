@@ -21,7 +21,7 @@ namespace QuizApp.Models
 
         public override string ToString()
         {
-            return $"Quiz #{Id}. {Name} | {Category} | Questions: {Questions.Count}";
+            return $"Quiz #{Id + 1}. {Name} | {Category} | Questions: {Questions.Count}";
         }
 
     }
